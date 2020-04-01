@@ -7,9 +7,14 @@ namespace WebApplication1
 {
     public class Student
     {
-        public int IdStudent { get; set; }
+        //IndexNumber, FirstName, LastName, BirthDate, IdEnrollment
+
+        public string IndexNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string IndexNumber { get; set; }
+        public string BirthDate { get; set; }
+        public int IdEnrollement { get; set; }
+        public int Semester { get; set; }
+
     }
 }
