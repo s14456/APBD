@@ -39,6 +39,7 @@ namespace WebApplication1.Controllers
         {
             if(id == 1)
             {
+                //cokolwiek
                 return Ok("Kowalski");
             }
             else if(id == 2)
@@ -47,6 +48,22 @@ namespace WebApplication1.Controllers
             }
             else
                 return NotFound("Nie znaleziono studenta");
+        }
+
+
+        [HttpPut("{id}")]
+
+        public IActionResult UpdateStudent(int id)
+        {
+            return Ok("Aktualizacja dokonczona.");
+        }
+
+        [HttpDelete("{id}")]
+
+        public IActionResult DeleteStudent(int id)
+        {
+
+            return Ok("Usuwanie ukonczone.");
         }
     }
 }
