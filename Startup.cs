@@ -4,11 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using WebApplication1.Controllers;
+using WebApplication1.Middlewares;
+using WebApplication1.Services;
 
 namespace WebApplication1
 {
@@ -24,6 +28,7 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IStudentsDbService, StudentsDbServices>();
             services.AddControllers();
         }
 
@@ -35,6 +40,26 @@ namespace WebApplication1
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<LoggingMiddleware>();
+            app.Use(async (context, next) =>
+            {
+                if (!context.Request.Headers.ContainsKey("Index"))
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    await context.Response.WriteAsync("Nie poda³eœ indeksu");
+                    return;
+                }
+
+                string index = context.Request.Headers["Index"].ToString();
+
+                if (StudentsDbServices.GetAllIndex().Contains(index))
+                {
+                    Console.WriteLine("Istnieje");
+                }
+
+                await next();
+            });
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -44,5 +69,7 @@ namespace WebApplication1
                 endpoints.MapControllers();
             });
         }
+
+
     }
 }
