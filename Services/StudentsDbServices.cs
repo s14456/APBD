@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -152,7 +153,7 @@ namespace WebApplication1.Services
             } 
                 return indexStrings;
         }
-
+        
         public void PromoteStudent()
         {
             using (SqlConnection con = new SqlConnection(ConString))

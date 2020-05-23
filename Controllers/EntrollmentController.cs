@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Services;
@@ -11,6 +12,7 @@ namespace WebApplication1.Controllers
 {
     [Route("api/enrollments")]
     [ApiController]
+    [Authorize(Roles = "employee")]
     public class EnrollmentController : ControllerBase
     {
         public IStudentsDbService _studentDbService;
@@ -22,6 +24,7 @@ namespace WebApplication1.Controllers
         }
         
         [HttpPost]
+        
         public IActionResult EnrollStudent([FromBody]Student newStudent)
         {
 
