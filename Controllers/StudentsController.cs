@@ -47,6 +47,12 @@ namespace WebApplication1.Controllers
             return Ok(_studentDbService.GetStudent());
         }
 
+        //[HttpGet("Students")]
+        //public IActionResult GetStudents();
+        //{
+        //    return Ok(_studentDbService.GetStudents());
+        //}
+
         [HttpGet("{IndexNumber}")]
 
         public IActionResult GetEnrollment(int IndexNumber)
@@ -91,7 +97,7 @@ namespace WebApplication1.Controllers
 
         public IActionResult DeleteStudent(int id)
         {
-
+            _studentDbService.DeleteStudent(id);
             return Ok("Usuwanie ukonczone.");
         }
 

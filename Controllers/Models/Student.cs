@@ -16,7 +16,7 @@ namespace WebApplication1
         [Required]
         public string LastName { get; set; }
         [Required]
-        public string BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         public int IdEnrollement { get; set; }
         public int Semester { get; set; }
         [Required]

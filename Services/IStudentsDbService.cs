@@ -15,6 +15,10 @@ namespace WebApplication1.Services
         public Student Entrollment(Student student);
 
         public void PromoteStudent();
+
+        public void ModifyStudent(Student student);
+        public void GetStudents();
+        public void DeleteStudent(string id);
     }
 
 }

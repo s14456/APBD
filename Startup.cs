@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using WebApplication1.Controllers;
 using WebApplication1.Middlewares;
+using WebApplication1.Models;
 using WebApplication1.Services;
 
 namespace WebApplication1
@@ -31,6 +32,7 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<s14456Context>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer
                 (options =>
                 {

@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Models;
 
 namespace WebApplication1.Services
 {
@@ -125,7 +127,7 @@ namespace WebApplication1.Services
                     st.IndexNumber = dr["IndexNumber"].ToString();
                     st.FirstName = dr["FirstName"].ToString();
                     st.LastName = dr["LastName"].ToString();
-                    st.BirthDate = dr["BirthDate"].ToString();
+                    //st.BirthDate = dr["BirthDate"];
                     st.IdEnrollement = dr.GetInt32(4);
                     //["IdEnrollement"];
                     list.Add(st);
@@ -171,6 +173,40 @@ namespace WebApplication1.Services
 
                 }
             }
+        }
+
+        public void ModifyStudent(Student student)
+        {
+            s14456Context dbContext = new s14456Context();
+            var res = new Models.Student
+            {
+                IndexNumber = student.IndexNumber,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                BirthDate = student.BirthDate
+            };
+
+            dbContext.Attach(res);
+            dbContext.Entry(res).Property("FirstName").IsModified = true;
+            dbContext.Entry(res).Property("LAstName").IsModified = true;
+            dbContext.Entry(res).Property("BirthDate").IsModified = true;
+            dbContext.SaveChanges();
+           
+        }
+
+        public List<Models.Student> GetStudents()
+        {
+            s14456Context dbContext = new s14456Context();
+            var res = dbContext.Student.ToList();
+            return res;
+        }
+
+        public void DeleteStudent(string id)
+        {
+            s14456Context dbContext = new s14456Context();
+            Models.Student student = dbContext.Student.SingleOrDefault(s => s.IndexNumber == id);
+            dbContext.Student.Remove(student);
+            dbContext.SaveChanges();
         }
     }
 }
